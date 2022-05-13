@@ -2,7 +2,15 @@ import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../utils/context";
-// import { DAppClient } from "@airgap/beacon-sdk";
+import { TezosToolkit } from "@taquito/taquito";
+import { BeaconWallet } from "@taquito/beacon-wallet";
+
+const tezos = new TezosToolkit("https://mainnet-tezos.giganode.io");
+const wallet = new BeaconWallet({
+  name: "D Showroom",
+});
+
+tezos.setWalletProvider(wallet);
 
 // const dAppClient = new DAppClient({ name: "D Showroom" });
 
@@ -49,13 +57,13 @@ const HeaderBar = () => {
     //     walletAddr: "tz1fGgpKXtxHqTZyY7YdHGCNTs9J2Wen6euq",
     //   },
     // });
-    // try {
-    //   console.log("Requesting permissions...");
-    //   const permissions = await dAppClient.requestPermissions();
-    //   console.log("Got permissions:", permissions.address);
-    // } catch (error) {
-    //   console.log("Got error:", error);
-    // }
+    try {
+      console.log("Requesting permissions...");
+      const permissions = await wallet.client.requestPermissions();
+      console.log("Got permissions:", permissions.address);
+    } catch (error) {
+      console.log("Got error:", error);
+    }
   };
 
   return (
