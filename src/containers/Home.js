@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
 
-  const onClickStart = () => {
+  const onClickStart = (e) => {
     navigate("/rooms");
+    e.preventDefault();
   };
 
   return (
@@ -25,6 +26,7 @@ const Home = () => {
         sx={{ textAlign: "center", padding: 2, mt: 5 }}
         size="large"
         onClick={onClickStart}
+        href="/rooms"
       >
         <Typography variant="h5">Get Started</Typography>
       </Button>

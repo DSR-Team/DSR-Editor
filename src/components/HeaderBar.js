@@ -1,29 +1,80 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { useContext, useMemo } from "react";
-import { AuthDispatcherAction } from "../utils/AuthReducer";
+import { useContext } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../utils/context";
+// import { DAppClient } from "@airgap/beacon-sdk";
+
+// const dAppClient = new DAppClient({ name: "D Showroom" });
+
+const HeaderBarLink = ({ children, to }) => {
+  const location = useLocation();
+  const isCurrentPage = location.pathname === to;
+
+  return (
+    <Link to={to}>
+      <Typography
+        color={isCurrentPage ? "text.primary" : "text.secondary"}
+        sx={(theme) => ({
+          mr: 4,
+          fontWeight: "bold",
+          position: "relative",
+          "&::after": isCurrentPage
+            ? {
+                position: "absolute",
+                content: "''",
+                height: 4,
+                bottom: -6,
+                margin: "0 auto",
+                left: 0,
+                right: 0,
+                width: "80%",
+                background: theme.palette.info.main,
+              }
+            : {},
+        })}
+      >
+        {children}
+      </Typography>
+    </Link>
+  );
+};
 
 const HeaderBar = () => {
   const { authState, authDispatcher } = useContext(AuthContext);
 
-  const onClickConnect = () => {
-    authDispatcher({
-      type: AuthDispatcherAction.LOGIN,
-      payload: {
-        walletAddr: "tz1fGgpKXtxHqTZyY7YdHGCNTs9J2Wen6euq",
-      },
-    });
+  const onClickConnect = async () => {
+    // authDispatcher({
+    //   type: AuthDispatcherAction.LOGIN,
+    //   payload: {
+    //     walletAddr: "tz1fGgpKXtxHqTZyY7YdHGCNTs9J2Wen6euq",
+    //   },
+    // });
+    // try {
+    //   console.log("Requesting permissions...");
+    //   const permissions = await dAppClient.requestPermissions();
+    //   console.log("Got permissions:", permissions.address);
+    // } catch (error) {
+    //   console.log("Got error:", error);
+    // }
   };
 
   return (
     <AppBar color="default" enableColorOnDark>
       <Toolbar>
-        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-          D SHOWROOM
-        </Typography>
+        <Link to="/">
+          <Typography
+            variant="h5"
+            color="text.primary"
+            sx={{ fontWeight: "bold", userSelect: "none" }}
+          >
+            D SHOWROOM
+          </Typography>
+        </Link>
         <Typography sx={{ flexGrow: 1 }} />
         {authState?.isLoggedIn ? (
           <>
+            <HeaderBarLink to="/rooms">Rooms</HeaderBarLink>
+            <HeaderBarLink to="/collections">Collections</HeaderBarLink>
             <Button variant="outlined" sx={{ textTransform: "none" }}>
               {authState?.walletAddr?.slice(0, 5) +
                 "..." +

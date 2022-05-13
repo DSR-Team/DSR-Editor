@@ -13,9 +13,6 @@ export const darkTheme = responsiveFontSizes(
       },
       secondary: {
         main: "#ce93d8",
-        light: "#f3e5f5",
-        dark: "#ab47bc",
-        contrastText: "rgba(0, 0, 0, 0.87)",
       },
       error: {
         main: "#f44336",
@@ -60,9 +57,9 @@ export const darkTheme = responsiveFontSizes(
       contrastThreshold: 3,
       tonalOffset: 0.2,
       text: {
-        primary: "rgba(255, 255, 255, 0.8)",
-        secondary: "rgba(255, 255, 255, 0.7)",
-        disabled: "rgba(255, 255, 255, 0.5)",
+        primary: "rgba(255, 255, 255, 1)",
+        secondary: "rgba(255, 255, 255, 0.6)",
+        disabled: "rgba(255, 255, 255, 0.4)",
         icon: "rgba(255, 255, 255, 0.5)",
       },
       divider: "rgba(255, 255, 255, 0.12)",

@@ -1,11 +1,17 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import { useReducer } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
+import { useContext, useReducer } from "react";
+import { HashRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import HeaderBar from "../components/HeaderBar";
 import { authStatusReducer } from "../utils/AuthReducer";
 import { AuthContext } from "../utils/context";
 import Home from "./Home";
+import NotFound from "./NotFound";
 import Rooms from "./Rooms";
+
+const PrivateRoute = () => {
+  const { authState } = useContext(AuthContext);
+  return authState?.isLoggedIn ? <Outlet /> : <Navigate to="/" replace />;
+};
 
 const App = () => {
   const initAuthState = () => {
@@ -37,27 +43,30 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{ authState, authDispatcher }}>
-      <HeaderBar />
-      <Box
-        sx={{
-          width: "100%",
-          height: "calc(100% - 56px)",
-          mt: "56px",
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          overflow: "auto",
-          scrollBehavior: "smooth",
-        }}
-      >
-        <HashRouter>
+      <HashRouter>
+        <HeaderBar />
+        <Box
+          sx={{
+            width: "100%",
+            height: "calc(100% - 56px)",
+            mt: "56px",
+            boxSizing: "border-box",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            overflow: "auto",
+            scrollBehavior: "smooth",
+          }}
+        >
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="rooms" element={<Rooms />} />
+            <Route path="/rooms" element={<PrivateRoute />}>
+              <Route path="/rooms" element={<Rooms />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
-        </HashRouter>
-      </Box>
+        </Box>
+      </HashRouter>
     </AuthContext.Provider>
   );
 };
