@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../utils/context";
 import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
+import { AuthDispatcherAction } from "../utils/AuthReducer";
 
 const tezos = new TezosToolkit("https://mainnet-tezos.giganode.io");
 const wallet = new BeaconWallet({
@@ -51,16 +52,16 @@ const HeaderBar = () => {
   const { authState, authDispatcher } = useContext(AuthContext);
 
   const onClickConnect = async () => {
-    // authDispatcher({
-    //   type: AuthDispatcherAction.LOGIN,
-    //   payload: {
-    //     walletAddr: "tz1fGgpKXtxHqTZyY7YdHGCNTs9J2Wen6euq",
-    //   },
-    // });
     try {
       console.log("Requesting permissions...");
       const permissions = await wallet.client.requestPermissions();
-      console.log("Got permissions:", permissions.address);
+
+      authDispatcher({
+        type: AuthDispatcherAction.LOGIN,
+        payload: {
+          walletAddr: permissions.address,
+        },
+      });
     } catch (error) {
       console.log("Got error:", error);
     }
