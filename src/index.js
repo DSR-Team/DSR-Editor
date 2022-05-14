@@ -5,14 +5,17 @@ import App from "./containers/App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme } from "./theme";
+import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ThemeProvider theme={darkTheme}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ThemeProvider>
+  <HashRouter>
+    <ThemeProvider theme={darkTheme}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ThemeProvider>
+  </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

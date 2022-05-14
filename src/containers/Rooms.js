@@ -1,7 +1,8 @@
-import { Grid } from "@mui/material";
+import { Button, Card, CardActionArea, CardContent, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import RoomListItem from "../components/RoomListItem";
+import AddIcon from "@mui/icons-material/Add";
 
 const testRoomList = [
   {
@@ -12,22 +13,22 @@ const testRoomList = [
   {
     img: "/images/test.jpg",
     name: "Room 2",
-    id: "HomHom",
+    id: "HomMim",
   },
   {
     img: "/images/test.jpg",
     name: "Room 3",
-    id: "HomHom",
+    id: "RedRed",
   },
   {
     img: "/images/test.jpg",
     name: "Room 4",
-    id: "HomHom",
+    id: "Doctor",
   },
   {
     img: "/images/test.jpg",
     name: "Room 5",
-    id: "HomHom",
+    id: "SongBo",
   },
 ];
 
@@ -47,7 +48,7 @@ const Rooms = () => {
   return (
     <Box
       sx={{
-        padding: "48px 30px",
+        padding: "36px 24px",
         boxSizing: "border-box",
         width: "100%",
       }}
@@ -58,6 +59,20 @@ const Rooms = () => {
             <RoomListItem room={room} />
           </Grid>
         ))}
+        <Grid {...gridProps} color="divider">
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{
+              width: 360,
+              height: 286,
+              margin: 2,
+              borderWidth: 3,
+            }}
+          >
+            <AddIcon sx={{ fontSize: 80 }} />
+          </Button>
+        </Grid>
       </Grid>
     </Box>
   );

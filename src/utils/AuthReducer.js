@@ -1,6 +1,7 @@
 import storage from "./storage";
 
 const authStatusReducer = (state, { type, payload }) => {
+  console.log("dispatcher got state: ", type);
   let walletAddr = payload?.walletAddr ?? "";
   let token = payload?.token;
 

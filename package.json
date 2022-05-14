@@ -1,5 +1,6 @@
 {
   "name": "dsr-editor",
+  "homepage": "https://DSR-Team.github.io/DSR-Editor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,6 +20,7 @@
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "gh-pages": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
     "path-browserify": "^1.0.1",
     "react": "^18.1.0",
     "react-cookies": "^0.1.1",
@@ -32,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

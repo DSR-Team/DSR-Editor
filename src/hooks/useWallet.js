@@ -49,6 +49,7 @@ const useWallet = () => {
           .then((res) => {
             console.log("Get signature. Try login...");
             login(addr, res.signature).then((authToken) => {
+              console.log("Login suceed!");
               authDispatcher({
                 type: AuthDispatcherAction.LOGIN,
                 payload: {

@@ -12,14 +12,23 @@ instance.interceptors.request.use((config) => {
 });
 
 export const login = async (walletAddr, signature) => {
-  const accessToken = await instance
-    .post("/login", {
-      address: walletAddr,
-      signed_address: signature,
-    })
-    .then((res) => {
-      return res.data.access_token;
-    });
+  const formData = new FormData();
+
+  formData.append("address", walletAddr);
+  formData.append("signed_address", signature);
+
+  const accessToken = await instance.post("/login", formData).then((res) => {
+    return res.data.access_token;
+  });
+
+  // const accessToken = await instance
+  //   .post("/login", {
+  //     address: walletAddr,
+  //     signed_address: signature,
+  //   })
+  //   .then((res) => {
+  //     return res.data.access_token;
+  //   });
 
   return accessToken;
 };
