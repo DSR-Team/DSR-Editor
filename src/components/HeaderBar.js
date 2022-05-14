@@ -2,18 +2,8 @@ import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../utils/context";
-import { TezosToolkit } from "@taquito/taquito";
-import { BeaconWallet } from "@taquito/beacon-wallet";
 import { AuthDispatcherAction } from "../utils/AuthReducer";
-
-const tezos = new TezosToolkit("https://mainnet-tezos.giganode.io");
-const wallet = new BeaconWallet({
-  name: "D Showroom",
-});
-
-tezos.setWalletProvider(wallet);
-
-// const dAppClient = new DAppClient({ name: "D Showroom" });
+import useWallet from "../hooks/useWallet";
 
 const HeaderBarLink = ({ children, to }) => {
   const location = useLocation();
@@ -50,21 +40,10 @@ const HeaderBarLink = ({ children, to }) => {
 
 const HeaderBar = () => {
   const { authState, authDispatcher } = useContext(AuthContext);
+  const { connectWallet } = useWallet();
 
-  const onClickConnect = async () => {
-    try {
-      console.log("Requesting permissions...");
-      const permissions = await wallet.client.requestPermissions();
-
-      authDispatcher({
-        type: AuthDispatcherAction.LOGIN,
-        payload: {
-          walletAddr: permissions.address,
-        },
-      });
-    } catch (error) {
-      console.log("Got error:", error);
-    }
+  const onClickConnect = () => {
+    connectWallet();
   };
 
   return (

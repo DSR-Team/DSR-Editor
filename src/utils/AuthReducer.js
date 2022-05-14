@@ -1,18 +1,31 @@
+import storage from "./storage";
+
 const authStatusReducer = (state, { type, payload }) => {
   let walletAddr = payload?.walletAddr ?? "";
+  let token = payload?.token;
 
   switch (type) {
     case AuthDispatcherAction.AUTO_SYNC:
-      return state;
+      if (token) {
+        storage.authToken = token;
+        return {
+          isLoggedIn: true,
+          walletAddr,
+        };
+      } else {
+        return state;
+      }
 
     case AuthDispatcherAction.LOGIN:
+      storage.authToken = token;
+      storage.walletAddr = walletAddr;
       return {
         isLoggedIn: true,
         walletAddr,
       };
 
     case AuthDispatcherAction.LOGOUT:
-      // storage.clearAccountData();
+      storage.clearAccountData();
       return {
         isLoggedIn: false,
         walletAddr: "",
