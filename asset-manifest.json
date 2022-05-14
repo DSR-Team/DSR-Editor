@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/DSR-Editor/static/css/main.4de6da29.chunk.css",
+    "main.js": "/DSR-Editor/static/js/main.109ec01e.chunk.js",
+    "main.js.map": "/DSR-Editor/static/js/main.109ec01e.chunk.js.map",
+    "runtime-main.js": "/DSR-Editor/static/js/runtime-main.eb4b7b0b.js",
+    "runtime-main.js.map": "/DSR-Editor/static/js/runtime-main.eb4b7b0b.js.map",
+    "static/js/2.7a5e19fc.chunk.js": "/DSR-Editor/static/js/2.7a5e19fc.chunk.js",
+    "static/js/2.7a5e19fc.chunk.js.map": "/DSR-Editor/static/js/2.7a5e19fc.chunk.js.map",
+    "static/js/3.1ad9704e.chunk.js": "/DSR-Editor/static/js/3.1ad9704e.chunk.js",
+    "static/js/3.1ad9704e.chunk.js.map": "/DSR-Editor/static/js/3.1ad9704e.chunk.js.map",
+    "index.html": "/DSR-Editor/index.html",
+    "static/css/main.4de6da29.chunk.css.map": "/DSR-Editor/static/css/main.4de6da29.chunk.css.map",
+    "static/js/2.7a5e19fc.chunk.js.LICENSE.txt": "/DSR-Editor/static/js/2.7a5e19fc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eb4b7b0b.js",
+    "static/js/2.7a5e19fc.chunk.js",
+    "static/css/main.4de6da29.chunk.css",
+    "static/js/main.109ec01e.chunk.js"
+  ]
+}
