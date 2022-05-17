@@ -11,24 +11,38 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
+class SimpleFormData extends FormData {
+  constructor(data) {
+    super();
+    for (let key in data) {
+      this.append(key, data[key]);
+    }
+  }
+}
+
+export const getPayload = async (walletAddr) => {
+  return await instance
+    .post(
+      "/get_payload",
+      new SimpleFormData({
+        address: walletAddr,
+      })
+    )
+    .then((res) => {
+      return res.data.result;
+    });
+};
+
 export const login = async (walletAddr, signature) => {
-  const formData = new FormData();
-
-  formData.append("address", walletAddr);
-  formData.append("signed_address", signature);
-
-  const accessToken = await instance.post("/login", formData).then((res) => {
-    return res.data.access_token;
-  });
-
-  // const accessToken = await instance
-  //   .post("/login", {
-  //     address: walletAddr,
-  //     signed_address: signature,
-  //   })
-  //   .then((res) => {
-  //     return res.data.access_token;
-  //   });
-
-  return accessToken;
+  return await instance
+    .post(
+      "/login",
+      new SimpleFormData({
+        address: walletAddr,
+        signed_address: signature,
+      })
+    )
+    .then((res) => {
+      return res.data.access_token;
+    });
 };

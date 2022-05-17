@@ -1,6 +1,6 @@
 {
   "name": "dsr-editor",
-  "homepage": "https://DSR-Team.github.io/DSR-Editor",
+  "homepage": "https://dsr-team.github.io/DSR-Editor/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

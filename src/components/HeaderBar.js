@@ -1,5 +1,5 @@
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../utils/context";
 import { AuthDispatcherAction } from "../utils/AuthReducer";
@@ -46,6 +46,12 @@ const HeaderBar = () => {
     connectWallet();
   };
 
+  const onClickLogout = () => {
+    authDispatcher({
+      type: AuthDispatcherAction.LOGOUT,
+    });
+  };
+
   return (
     <AppBar color="default" enableColorOnDark>
       <Toolbar>
@@ -63,7 +69,11 @@ const HeaderBar = () => {
           <>
             <HeaderBarLink to="/rooms">Rooms</HeaderBarLink>
             <HeaderBarLink to="/collections">Collections</HeaderBarLink>
-            <Button variant="outlined" sx={{ textTransform: "none" }}>
+            <Button
+              variant="outlined"
+              sx={{ textTransform: "none" }}
+              onDoubleClick={onClickLogout}
+            >
               {authState?.walletAddr?.slice(0, 5) +
                 "..." +
                 authState?.walletAddr?.slice(-5)}

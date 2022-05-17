@@ -10,7 +10,7 @@ const NotFound = () => {
     >
       <Box
         component="img"
-        src="/images/test.jpg"
+        src="/DSR-Editor/images/test.jpg"
         sx={{
           width: "100%",
           height: "100%",

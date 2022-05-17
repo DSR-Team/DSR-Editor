@@ -6,27 +6,27 @@ import AddIcon from "@mui/icons-material/Add";
 
 const testRoomList = [
   {
-    img: "/images/test.jpg",
+    img: "/DSR-Editor/images/test.jpg",
     name: "Room 1",
     id: "HomHom",
   },
   {
-    img: "/images/test.jpg",
+    img: "/DSR-Editor/images/test.jpg",
     name: "Room 2",
     id: "HomMim",
   },
   {
-    img: "/images/test.jpg",
+    img: "/DSR-Editor/images/test.jpg",
     name: "Room 3",
     id: "RedRed",
   },
   {
-    img: "/images/test.jpg",
+    img: "/DSR-Editor/images/test.jpg",
     name: "Room 4",
     id: "Doctor",
   },
   {
-    img: "/images/test.jpg",
+    img: "/DSR-Editor/images/test.jpg",
     name: "Room 5",
     id: "SongBo",
   },
