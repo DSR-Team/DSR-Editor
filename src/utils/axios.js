@@ -21,16 +21,9 @@ class SimpleFormData extends FormData {
 }
 
 export const getPayload = async (walletAddr) => {
-  return await instance
-    .post(
-      "/get_payload",
-      new SimpleFormData({
-        address: walletAddr,
-      })
-    )
-    .then((res) => {
-      return res.data.result;
-    });
+  return await instance.get(`/login/${walletAddr}/payload`).then((res) => {
+    return res.data.payload;
+  });
 };
 
 export const login = async (walletAddr, signature) => {
@@ -39,7 +32,7 @@ export const login = async (walletAddr, signature) => {
       "/login",
       new SimpleFormData({
         address: walletAddr,
-        signed_address: signature,
+        signature,
       })
     )
     .then((res) => {
