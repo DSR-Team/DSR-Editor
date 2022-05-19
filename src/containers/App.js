@@ -16,6 +16,7 @@ import Home from "./Home";
 import NotFound from "./NotFound";
 import Rooms from "./Rooms";
 import jwt from "jsonwebtoken";
+import Collections from "./Collections";
 
 const PrivateRoute = () => {
   const { authState } = useContext(AuthContext);
@@ -130,6 +131,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/rooms" element={<PrivateRoute />}>
             <Route path="/rooms" element={<Rooms />} />
+          </Route>
+          <Route path="/collections" element={<PrivateRoute />}>
+            <Route path="/collections" element={<Collections />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

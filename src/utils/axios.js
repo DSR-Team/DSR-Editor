@@ -6,7 +6,7 @@ const instance = axios.create({ baseURL: SERVER_URL });
 
 instance.interceptors.request.use((config) => {
   const token = storage.authToken;
-  config.headers["auth-token"] = token ? `Bearer ${token}` : "";
+  config.headers["Authorization"] = token ? `Bearer ${token}` : "";
 
   return config;
 });
@@ -38,4 +38,10 @@ export const login = async (walletAddr, signature) => {
     .then((res) => {
       return res.data.access_token;
     });
+};
+
+export const getCollections = async () => {
+  return await instance.get("/collections").then((res) => {
+    return res.data;
+  });
 };
