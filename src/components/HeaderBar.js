@@ -13,7 +13,7 @@ const HeaderBarLink = ({ children, to }) => {
     <Link to={to}>
       <Typography
         color={isCurrentPage ? "text.primary" : "text.secondary"}
-        sx={(theme) => ({
+        sx={{
           mr: 4,
           fontWeight: "bold",
           position: "relative",
@@ -21,16 +21,16 @@ const HeaderBarLink = ({ children, to }) => {
             ? {
                 position: "absolute",
                 content: "''",
-                height: 4,
-                bottom: -6,
+                height: 2,
+                bottom: -3,
                 margin: "0 auto",
                 left: 0,
                 right: 0,
-                width: "80%",
-                background: theme.palette.info.main,
+                width: "100%",
+                backgroundColor: "text.primary",
               }
             : {},
-        })}
+        }}
       >
         {children}
       </Typography>

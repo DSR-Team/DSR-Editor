@@ -40,8 +40,10 @@ export const login = async (walletAddr, signature) => {
     });
 };
 
-export const getCollections = async () => {
-  return await instance.get("/collections").then((res) => {
-    return res.data;
-  });
+export const getCollections = async ({ offset }) => {
+  return await instance
+    .get("/collections", { params: { offset } })
+    .then((res) => {
+      return res.data;
+    });
 };

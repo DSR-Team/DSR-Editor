@@ -1,20 +1,32 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 
-const CollectionListItem = ({
-  collection: { name, thumbnailUri, displayUri },
-}) => {
+const CollectionListItem = ({ collection }) => {
+  const { name, thumbnailUri, displayUri } = collection ?? {};
+  const skeleton = !name;
+
   return (
-    <Card sx={{ width: 270, margin: 2 }}>
+    <Card sx={{ width: 270, margin: 2, height: "max-content" }}>
       <CardMedia
-        component="img"
-        image={displayUri ?? thumbnailUri}
         sx={{
           aspectRatio: "1",
           objectFit: "contain",
-          // padding: 1,
-          // boxSizing: "border-box",
           backgroundColor: "background.paper",
         }}
+        {...(skeleton
+          ? {
+              component: Skeleton,
+              variant: "rectangular",
+              width: "100%",
+              height: "auto",
+              animation: "wave",
+            }
+          : { component: "img", image: displayUri ?? thumbnailUri })}
       />
       <CardContent
         sx={{
@@ -35,7 +47,7 @@ const CollectionListItem = ({
             whiteSpace: "nowrap",
           }}
         >
-          {name}
+          {skeleton ? <Skeleton /> : name}
         </Typography>
       </CardContent>
     </Card>
