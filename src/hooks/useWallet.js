@@ -3,7 +3,7 @@ import { BeaconWallet } from "@taquito/beacon-wallet";
 import { SigningType } from "@airgap/beacon-sdk";
 import { useContext, useEffect, useState } from "react";
 import { getPayload, login } from "../utils/axios";
-import { AuthContext } from "../utils/context";
+import { AuthContext, LoadingContext } from "../utils/context";
 import { AuthDispatcherAction } from "../utils/AuthReducer";
 import Utility from "../utils/utility";
 
@@ -19,6 +19,7 @@ tezos.setWalletProvider(wallet);
  * @returns {{walletAddr: string, connectWallet: Promise, checkWalletConnection: Promise}}
  */
 const useWallet = () => {
+  const { setIsLoading } = useContext(LoadingContext);
   const { authState, authDispatcher } = useContext(AuthContext);
   const [walletAddr, setWalletAddr] = useState("");
 
@@ -37,6 +38,7 @@ const useWallet = () => {
   };
 
   const connectWallet = async () => {
+    setIsLoading(true);
     try {
       // Request Permission
       console.log("Requesting permissions...");
@@ -72,6 +74,7 @@ const useWallet = () => {
       setWalletAddr("");
       console.log("Got error:", error);
     }
+    setIsLoading(false);
   };
 
   return { walletAddr, connectWallet, checkWalletConnection };

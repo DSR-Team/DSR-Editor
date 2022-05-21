@@ -76,6 +76,7 @@ const Collections = () => {
       )}
       {(count ?? 0) > numPerPage && (
         <Pagination
+          color="primary"
           sx={(theme) => ({
             position: "sticky",
             bottom: 20,

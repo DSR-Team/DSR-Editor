@@ -20,6 +20,12 @@ class SimpleFormData extends FormData {
   }
 }
 
+export const renewJwt = async () => {
+  return await instance.get("/renew_token").then((res) => {
+    return res.data.access_token;
+  });
+};
+
 export const getPayload = async (walletAddr) => {
   return await instance.get(`/login/${walletAddr}/payload`).then((res) => {
     return res.data.payload;

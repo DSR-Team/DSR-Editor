@@ -53,7 +53,11 @@ const Rooms = () => {
         width: "100%",
       }}
     >
-      <Grid container direction="row" sx={{ margin: "auto" }}>
+      <Grid
+        container
+        direction="row"
+        sx={{ margin: "auto", width: "80%", maxWidth: 1600 }}
+      >
         {roomList?.map((room) => (
           <Grid key={room.id} {...gridProps}>
             <RoomListItem room={room} />

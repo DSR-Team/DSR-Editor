@@ -74,7 +74,10 @@ const RoomListItem = ({ room }) => {
               },
             }}
           >
-            <IconButton sx={{ position: "absolute", right: 8, bottom: 8 }}>
+            <IconButton
+              color="primary"
+              sx={{ position: "absolute", right: 8, bottom: 8 }}
+            >
               <EditIcon />
             </IconButton>
           </Tooltip>

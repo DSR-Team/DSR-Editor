@@ -7,7 +7,8 @@ import {
 } from "@mui/material";
 
 const CollectionListItem = ({ collection }) => {
-  const { name, thumbnailUri, displayUri } = collection ?? {};
+  const { name, thumbnailUri, displayUri, artifactUri, mimeType } =
+    collection ?? {};
   const skeleton = !name;
 
   return (
@@ -26,7 +27,17 @@ const CollectionListItem = ({ collection }) => {
               height: "auto",
               animation: "wave",
             }
-          : { component: "img", image: displayUri ?? thumbnailUri })}
+          : {
+              component: mimeType.includes("video") ? "video" : "img",
+              controls: true,
+              // autoPlay: true,
+              loop: true,
+              muted: true,
+              image:
+                mimeType.includes("image") || mimeType.includes("video")
+                  ? artifactUri
+                  : displayUri ?? thumbnailUri,
+            })}
       />
       <CardContent
         sx={{

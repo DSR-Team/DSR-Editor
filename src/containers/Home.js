@@ -19,7 +19,11 @@ const Home = () => {
         justifyContent: "center",
       }}
     >
-      <Typography variant="h1" color="primary" sx={{ textAlign: "center" }}>
+      <Typography
+        variant="h1"
+        color="text.primary"
+        sx={{ textAlign: "center" }}
+      >
         Welcome to DSR.
       </Typography>
       <Button

@@ -7,3 +7,8 @@ export const AuthContext = createContext({
   },
   authDispatcher: () => {},
 });
+
+export const LoadingContext = createContext({
+  isLoading: false,
+  setIsLoading: () => {},
+});

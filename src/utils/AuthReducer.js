@@ -9,10 +9,7 @@ const authStatusReducer = (state, { type, payload }) => {
     case AuthDispatcherAction.AUTO_SYNC:
       if (token) {
         storage.authToken = token;
-        return {
-          isLoggedIn: true,
-          walletAddr,
-        };
+        return state;
       } else {
         return state;
       }
