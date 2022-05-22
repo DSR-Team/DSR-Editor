@@ -1,19 +1,29 @@
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { useCallback, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../utils/context";
 import { AuthDispatcherAction } from "../utils/AuthReducer";
 import useWallet from "../hooks/useWallet";
+import { useTheme } from "@mui/material/styles";
 
 const HeaderBarLink = ({ children, to }) => {
   const location = useLocation();
   const isCurrentPage = location.pathname === to;
+  const theme = useTheme();
+  const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <Link to={to}>
       <Typography
         color={isCurrentPage ? "text.primary" : "text.secondary"}
         sx={{
+          fontSize: isUpSm ? "1rem" : "0.75rem",
           mr: 4,
           fontWeight: "bold",
           position: "relative",
@@ -41,6 +51,8 @@ const HeaderBarLink = ({ children, to }) => {
 const HeaderBar = () => {
   const { authState, authDispatcher } = useContext(AuthContext);
   const { connectWallet } = useWallet();
+  const theme = useTheme();
+  const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   const onClickConnect = () => {
     connectWallet();
@@ -56,13 +68,11 @@ const HeaderBar = () => {
     <AppBar color="default" enableColorOnDark>
       <Toolbar>
         <Link to="/">
-          <Typography
-            variant="h5"
-            color="text.primary"
-            sx={{ fontWeight: "bold", userSelect: "none" }}
-          >
-            D SHOWROOM
-          </Typography>
+          <img
+            style={{ height: isUpSm ? 48 : 40 }}
+            src={isUpSm ? "/DSR-Editor/logo_full.svg" : "/DSR-Editor/logo.svg"}
+            alt="D SHOWROOM"
+          />
         </Link>
         <Typography sx={{ flexGrow: 1 }} />
         {authState?.isLoggedIn ? (
@@ -74,9 +84,11 @@ const HeaderBar = () => {
               sx={{ textTransform: "none" }}
               onDoubleClick={onClickLogout}
             >
-              {authState?.walletAddr?.slice(0, 5) +
-                "..." +
-                authState?.walletAddr?.slice(-5)}
+              {isUpSm
+                ? authState?.walletAddr?.slice(0, 5) +
+                  "..." +
+                  authState?.walletAddr?.slice(-5)
+                : "..." + authState?.walletAddr?.slice(-3)}
             </Button>
           </>
         ) : (

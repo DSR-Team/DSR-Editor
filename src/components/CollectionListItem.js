@@ -5,40 +5,74 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
+import { useState } from "react";
 
 const CollectionListItem = ({ collection }) => {
   const { name, thumbnailUri, displayUri, artifactUri, mimeType } =
     collection ?? {};
   const skeleton = !name;
+  const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <Card sx={{ width: 270, margin: 2, height: "max-content" }}>
-      <CardMedia
+    <Card
+      sx={{
+        width: 270,
+        margin: 2,
+        height: "max-content",
+      }}
+    >
+      <Box
         sx={{
+          width: "100%",
+          height: "auto",
+          position: "relative",
           aspectRatio: "1",
-          objectFit: "contain",
           backgroundColor: "background.paper",
         }}
-        {...(skeleton
-          ? {
-              component: Skeleton,
-              variant: "rectangular",
+      >
+        {!skeleton && (
+          <CardMedia
+            sx={{
+              objectFit: "contain",
               width: "100%",
-              height: "auto",
-              animation: "wave",
+              height: "100%",
+              zIndex: 1,
+              position: "absolute",
+              top: 0,
+            }}
+            component={mimeType.includes("video") ? "video" : "img"}
+            image={
+              mimeType.includes("image") || mimeType.includes("video")
+                ? artifactUri
+                : displayUri ?? thumbnailUri
             }
-          : {
-              component: mimeType.includes("video") ? "video" : "img",
-              controls: true,
-              // autoPlay: true,
-              loop: true,
-              muted: true,
-              image:
-                mimeType.includes("image") || mimeType.includes("video")
-                  ? artifactUri
-                  : displayUri ?? thumbnailUri,
-            })}
-      />
+            controls
+            loop
+            loading="lazy"
+            onLoad={() => {
+              setIsLoaded(true);
+            }}
+            onLoadStart={() => {
+              setIsLoaded(true);
+            }}
+          />
+        )}
+        {!isLoaded && (
+          <Skeleton
+            sx={{
+              zIndex: 0,
+              position: "absolute",
+              top: 0,
+            }}
+            variant="rectangular"
+            width="100%"
+            height="100%"
+            animation="wave"
+          />
+        )}
+      </Box>
+
       <CardContent
         sx={{
           width: "100%",

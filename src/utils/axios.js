@@ -53,3 +53,23 @@ export const getCollections = async ({ offset }) => {
       return res.data;
     });
 };
+
+export const getRooms = async () => {
+  return await instance.get("/rooms").then((res) => {
+    return res.data;
+  });
+};
+
+export const createRoom = async (name, image) => {
+  return await instance
+    .post(
+      "/rooms/create",
+      new SimpleFormData({
+        name,
+        image: image ?? "",
+      })
+    )
+    .then((res) => {
+      return res.data.id;
+    });
+};

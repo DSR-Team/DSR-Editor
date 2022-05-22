@@ -1,4 +1,4 @@
-import { Backdrop, Box, Typography } from "@mui/material";
+import { Backdrop, Box, Portal, Typography } from "@mui/material";
 import { useContext, useReducer, useEffect, useState } from "react";
 import {
   HashRouter,
@@ -133,12 +133,18 @@ const App = () => {
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
       <AuthContext.Provider value={{ authState, authDispatcher }}>
-        <Backdrop
-          sx={{ zIndex: 999999, backgroundColor: "rgba(0, 0, 0, 0.7)" }}
-          open={isLoading}
-        >
-          <img width="100" alt="loading" src="/DSR-Editor/images/spinner.svg" />
-        </Backdrop>
+        <Portal container={document.body}>
+          <Backdrop
+            sx={{ zIndex: 999999, backgroundColor: "rgba(0, 0, 0, 0.7)" }}
+            open={isLoading}
+          >
+            <img
+              width="100"
+              alt="loading"
+              src="/DSR-Editor/images/spinner.svg"
+            />
+          </Backdrop>
+        </Portal>
         <HeaderBar />
         <Box
           sx={{

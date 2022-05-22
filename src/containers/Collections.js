@@ -60,7 +60,7 @@ const Collections = () => {
     >
       <Grid container direction="row" sx={{ margin: "auto" }}>
         {collections?.map((collection, i) => (
-          <Grid key={`collection_${i}`} {...gridProps}>
+          <Grid key={`collection_${collection?.name ?? i}`} {...gridProps}>
             <CollectionListItem collection={collection} />
           </Grid>
         ))}
@@ -78,6 +78,7 @@ const Collections = () => {
         <Pagination
           color="primary"
           sx={(theme) => ({
+            zIndex: 100,
             position: "sticky",
             bottom: 20,
             borderRadius: "9999px",
