@@ -56,6 +56,9 @@ const App = () => {
   const checkJwt = () => {
     renewJwt()
       .then((token) => {
+        if (jwt.decode(token)?.addr !== storage.walletAddr) {
+          throw new Error("Inconsistent address.");
+        }
         authDispatcher({
           type: AuthDispatcherAction.AUTO_SYNC,
           payload: {
