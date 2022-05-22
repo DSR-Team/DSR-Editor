@@ -8,21 +8,44 @@ import {
   Snackbar,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import CopyIcon from "@mui/icons-material/ContentCopyRounded";
 import EditIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/DeleteRounded";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import { deleteRoom } from "../utils/axios";
+import { LoadingContext } from "../utils/context";
 
-const RoomListItem = ({ room }) => {
+const RoomListItem = ({ room, refetch }) => {
   const { image, name, id } = room ?? {};
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
-  const skeleton = !name;
   const [isLoaded, setIsLoaded] = useState(false);
+  const { setIsLoading } = useContext(LoadingContext);
+  const [isShowingConfirmDelete, setIsShowingConfirmDelete] = useState(true);
+  const navigate = useNavigate();
+  const skeleton = !name;
+  const theme = useTheme();
+  const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   const onClickCopy = () => {
     navigator.clipboard.writeText(id).then(() => {
       setIsSnackbarOpen(true);
+    });
+  };
+
+  const onClickEdit = () => {
+    navigate(id);
+  };
+
+  const onClickDelete = () => {
+    setIsLoading(true);
+    deleteRoom(id).then(() => {
+      refetch?.().then(() => {
+        setIsLoading(false);
+      });
     });
   };
 
@@ -78,7 +101,7 @@ const RoomListItem = ({ room }) => {
           sx={{
             pt: 1,
             "&:last-child": {
-              paddingBottom: 1.5,
+              paddingBottom: isUpSm ? 1.5 : 1,
             },
             position: "relative",
           }}
@@ -103,6 +126,7 @@ const RoomListItem = ({ room }) => {
                 variant="body2"
                 color="text.secondary"
                 sx={{
+                  fontSize: isUpSm ? "0.875rem" : "0.75rem",
                   width: "fit-content",
                   display: "flex",
                   flexDirection: "row",
@@ -115,7 +139,10 @@ const RoomListItem = ({ room }) => {
                 }}
                 onClick={onClickCopy}
               >
-                <CopyIcon fontSize="small" sx={{ mr: 0.5 }} />
+                <CopyIcon
+                  fontSize="small"
+                  sx={{ mr: 0.5, fontSize: isUpSm ? "1.25rem" : "1rem" }}
+                />
                 {id}
               </Typography>
             </Tooltip>
@@ -137,9 +164,16 @@ const RoomListItem = ({ room }) => {
                 <IconButton
                   color="error"
                   size="small"
-                  sx={{ position: "absolute", right: 48, bottom: 8 }}
+                  sx={{
+                    position: "absolute",
+                    right: isUpSm ? 48 : 40,
+                    bottom: isUpSm ? 8 : 4,
+                  }}
+                  onClick={onClickDelete}
                 >
-                  <DeleteIcon />
+                  <DeleteIcon
+                    sx={{ fontSize: isUpSm ? "1.5rem" : "1.25rem" }}
+                  />
                 </IconButton>
               </Tooltip>
               <Tooltip
@@ -157,9 +191,14 @@ const RoomListItem = ({ room }) => {
                 <IconButton
                   color="primary"
                   size="small"
-                  sx={{ position: "absolute", right: 8, bottom: 8 }}
+                  sx={{
+                    position: "absolute",
+                    right: 8,
+                    bottom: isUpSm ? 8 : 4,
+                  }}
+                  onClick={onClickEdit}
                 >
-                  <EditIcon />
+                  <EditIcon sx={{ fontSize: isUpSm ? "1.5rem" : "1.25rem" }} />
                 </IconButton>
               </Tooltip>
             </>
@@ -173,10 +212,11 @@ const RoomListItem = ({ room }) => {
         onClose={useCallback(() => {
           setIsSnackbarOpen(false);
         }, [])}
-        message="Room ID copied"
+        message="Room ID copied."
         sx={{
           "& .MuiPaper-root": {
-            minWidth: "min-content",
+            maxWidth: "max-content",
+            minWidth: "max-content",
             pl: 3,
             pr: 3,
           },

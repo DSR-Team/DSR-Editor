@@ -26,7 +26,7 @@ const AddRoomDialog = ({ open, onClose }) => {
 
     createRoom(roomName).then((id) => {
       setIsLoading(false);
-      navigate(`/rooms/${id}`);
+      navigate(id);
     });
   };
 

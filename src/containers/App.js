@@ -1,13 +1,6 @@
 import { Backdrop, Box, Portal, Typography } from "@mui/material";
 import { useContext, useReducer, useEffect, useState } from "react";
-import {
-  HashRouter,
-  Navigate,
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import HeaderBar from "../components/HeaderBar";
 import { authStatusReducer, AuthDispatcherAction } from "../utils/AuthReducer";
 import { AuthContext, LoadingContext } from "../utils/context";
@@ -18,6 +11,7 @@ import Rooms from "./Rooms";
 import jwt from "jsonwebtoken";
 import Collections from "./Collections";
 import { renewJwt } from "../utils/axios";
+import EditRoom from "./EditRoom";
 
 const PrivateRoute = () => {
   const { authState } = useContext(AuthContext);
@@ -162,8 +156,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/rooms" element={<PrivateRoute />}>
-              <Route path="/rooms" element={<Rooms />} />
+              <Route path="/rooms" element={<Rooms />}></Route>
             </Route>
+            <Route path="/rooms/:roomId" element={<EditRoom />} />
             <Route path="/collections" element={<PrivateRoute />}>
               <Route path="/collections" element={<Collections />} />
             </Route>

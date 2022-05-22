@@ -48,7 +48,7 @@ const Rooms = () => {
     xl: 3,
   };
 
-  useEffect(() => {
+  const fetchRooms = () =>
     getRooms()
       .then((rooms) => {
         setRoomList(rooms);
@@ -56,6 +56,9 @@ const Rooms = () => {
       .catch((e) => {
         alert(e);
       });
+
+  useEffect(() => {
+    fetchRooms();
   }, []);
 
   return (
@@ -75,7 +78,7 @@ const Rooms = () => {
           <>
             {roomList.map((room) => (
               <Grid key={room.id} {...gridProps}>
-                <RoomListItem room={room} />
+                <RoomListItem room={room} refetch={fetchRooms} />
               </Grid>
             ))}
             <Grid {...gridProps} color="divider">

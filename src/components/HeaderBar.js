@@ -69,7 +69,7 @@ const HeaderBar = () => {
       <Toolbar>
         <Link to="/">
           <img
-            style={{ height: isUpSm ? 48 : 40 }}
+            style={{ height: 40 }}
             src={isUpSm ? "/DSR-Editor/logo_full.svg" : "/DSR-Editor/logo.svg"}
             alt="D SHOWROOM"
           />

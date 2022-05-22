@@ -44,6 +44,7 @@ const AnimateArrow = ({
       >
         {Array.from({ length: arrowNum }, () => ({})).map((v, i) => (
           <Box
+            key={`arrow_${i}`}
             component="span"
             sx={{
               display: "block",

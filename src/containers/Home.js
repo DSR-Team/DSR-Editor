@@ -19,24 +19,17 @@ const Home = () => {
     <Box
       sx={{
         height: "100%",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      <Typography
-        variant="h1"
-        color="text.primary"
-        sx={{ textAlign: "center" }}
-      >
-        Welcome to DSR.
-      </Typography>
-      <AnimateArrow
-        arrowNum={2}
-        size={20}
-        color="secondary.main"
-        sx={{ mt: 2 }}
+      <img
+        style={{ minWidth: 200, width: "25%", marginBottom: 24 }}
+        src="/DSR-Editor/images/welcome.svg"
+        alt="Welcome to DSR."
       />
       <Button
         sx={{ textAlign: "center", padding: 2, mt: 2.5 }}

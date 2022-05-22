@@ -73,3 +73,7 @@ export const createRoom = async (name, image) => {
       return res.data.id;
     });
 };
+
+export const deleteRoom = async (id) => {
+  await instance.delete(`/rooms/${id}/delete`);
+};
