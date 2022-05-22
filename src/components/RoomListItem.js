@@ -1,11 +1,18 @@
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   IconButton,
   Skeleton,
   Snackbar,
+  TextField,
   Tooltip,
   Typography,
   useMediaQuery,
@@ -24,7 +31,8 @@ const RoomListItem = ({ room, refetch }) => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const { setIsLoading } = useContext(LoadingContext);
-  const [isShowingConfirmDelete, setIsShowingConfirmDelete] = useState(true);
+  const [isShowingConfirmDelete, setIsShowingConfirmDelete] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
   const navigate = useNavigate();
   const skeleton = !name;
   const theme = useTheme();
@@ -41,6 +49,11 @@ const RoomListItem = ({ room, refetch }) => {
   };
 
   const onClickDelete = () => {
+    setIsShowingConfirmDelete(true);
+  };
+
+  const onConfirmDelete = () => {
+    setIsShowingConfirmDelete(false);
     setIsLoading(true);
     deleteRoom(id).then(() => {
       refetch?.().then(() => {
@@ -222,6 +235,41 @@ const RoomListItem = ({ room, refetch }) => {
           },
         }}
       />
+      <Dialog open={isShowingConfirmDelete} maxWidth="xs" fullWidth>
+        <DialogTitle>Are you sure to delete the room?</DialogTitle>
+        <DialogContent>
+          <DialogContentText component="span">
+            Type the room name{" "}
+            <Typography component="span" color="error" fontWeight="bold">
+              {name}
+            </Typography>
+          </DialogContentText>
+          <TextField
+            variant="standard"
+            fullWidth
+            value={confirmText}
+            onChange={useCallback((e) => {
+              setConfirmText(e.target.value);
+            }, [])}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={useCallback(() => {
+              setIsShowingConfirmDelete(false);
+            }, [])}
+          >
+            Cancel
+          </Button>
+          <Button
+            color="error"
+            disabled={confirmText !== name}
+            onClick={onConfirmDelete}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
