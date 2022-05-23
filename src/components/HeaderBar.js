@@ -23,7 +23,7 @@ const HeaderBarLink = ({ children, to }) => {
       <Typography
         color={isCurrentPage ? "text.primary" : "text.secondary"}
         sx={{
-          fontSize: isUpSm ? "1rem" : "0.75rem",
+          fontSize: isUpSm ? "1rem" : "0.875rem",
           mr: 4,
           fontWeight: "bold",
           position: "relative",

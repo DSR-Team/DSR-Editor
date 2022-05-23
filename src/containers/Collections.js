@@ -52,13 +52,14 @@ const Collections = () => {
         position: "relative",
         padding: "36px 24px",
         boxSizing: "border-box",
+        minHeight: "100%",
         width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
       }}
     >
-      <Grid container direction="row" sx={{ margin: "auto" }}>
+      <Grid container direction="row" sx={{ pb: 10 }}>
         {collections?.map((collection, i) => (
           <Grid key={`collection_${collection?.name ?? i}`} {...gridProps}>
             <CollectionListItem collection={collection} />
@@ -79,7 +80,7 @@ const Collections = () => {
           color="primary"
           sx={(theme) => ({
             zIndex: 100,
-            position: "sticky",
+            position: "fixed",
             bottom: 20,
             borderRadius: "9999px",
             display: "flex",

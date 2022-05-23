@@ -15,6 +15,11 @@ const Home = () => {
     e.preventDefault();
   };
 
+  const onClickConnect = (e) => {
+    connectWallet();
+    e.preventDefault();
+  };
+
   return (
     <Box
       sx={{
@@ -27,17 +32,17 @@ const Home = () => {
       }}
     >
       <img
-        style={{ minWidth: 200, width: "25%", marginBottom: 24 }}
+        style={{ minWidth: 200, width: "50%", maxWidth: 360, marginBottom: 24 }}
         src="/DSR-Editor/images/welcome.svg"
         alt="Welcome to DSR."
       />
       <Button
         sx={{ textAlign: "center", padding: 2, mt: 2.5 }}
         size="large"
-        onClick={authState?.isLoggedIn ? onClickStart : connectWallet}
+        onClick={authState?.isLoggedIn ? onClickStart : onClickConnect}
         href="/rooms"
       >
-        <Typography variant="h5">
+        <Typography variant="h6">
           {authState?.isLoggedIn ? "Get Started" : "Connect to Start"}
         </Typography>
       </Button>

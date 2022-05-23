@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { memo, useCallback, useMemo, useState } from "react";
 
 /**
