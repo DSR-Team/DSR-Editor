@@ -5,6 +5,7 @@ import RoomListItem from "../components/RoomListItem";
 import AddIcon from "@mui/icons-material/Add";
 import AddRoomDialog from "../components/AddRoomDialog";
 import { getRooms } from "../utils/axios";
+import { useOutletContext } from "react-router-dom";
 
 const testRoomList = [
   {
@@ -35,7 +36,7 @@ const testRoomList = [
 ];
 
 const Rooms = () => {
-  const [roomList, setRoomList] = useState();
+  const { roomList, fetchRooms } = useOutletContext();
   const [isAddRoomDialogOpen, setIsAddRoomDialogOpen] = useState(false);
   const gridProps = {
     item: true,
@@ -47,19 +48,6 @@ const Rooms = () => {
     lg: 4,
     xl: 3,
   };
-
-  const fetchRooms = () =>
-    getRooms()
-      .then((rooms) => {
-        setRoomList(rooms);
-      })
-      .catch((e) => {
-        alert(e);
-      });
-
-  useEffect(() => {
-    fetchRooms();
-  }, []);
 
   return (
     <Box

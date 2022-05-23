@@ -12,6 +12,7 @@ import jwt from "jsonwebtoken";
 import Collections from "./Collections";
 import { renewJwt } from "../utils/axios";
 import EditRoom from "./EditRoom";
+import RoomsRoot from "./RoomsRoot";
 
 const PrivateRoute = () => {
   const { authState } = useContext(AuthContext);
@@ -154,13 +155,17 @@ const App = () => {
           }}
         >
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/rooms" element={<PrivateRoute />}>
-              <Route path="/rooms" element={<Rooms />}></Route>
-            </Route>
-            <Route path="/rooms/:roomId" element={<EditRoom />} />
-            <Route path="/collections" element={<PrivateRoute />}>
-              <Route path="/collections" element={<Collections />} />
+            <Route path="/" element={<Outlet />}>
+              <Route index element={<Home />} />
+              <Route path="rooms" element={<PrivateRoute />}>
+                <Route path="" element={<RoomsRoot />}>
+                  <Route index element={<Rooms />} />
+                  <Route path=":roomId" element={<EditRoom />} />
+                </Route>
+              </Route>
+              <Route path="collections" element={<PrivateRoute />}>
+                <Route path="" element={<Collections />} />
+              </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

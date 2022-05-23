@@ -11,8 +11,8 @@ import CollectionListItem from "../components/CollectionListItem";
 import { getCollections } from "../utils/axios";
 
 const Collections = () => {
-  const [collections, setCollections] = useState();
-  const [count, setCount] = useState();
+  const [collections, setCollections] = useState({});
+  const [count, setCount] = useState({});
 
   const numPerPage = 24;
   const location = useLocation();
@@ -22,13 +22,18 @@ const Collections = () => {
   useEffect(() => {
     const offset = (page - 1) * numPerPage;
 
-    setCollections(Array.from({ length: numPerPage }, () => ({})));
+    if (!collections[page]) {
+      setCollections({
+        [page]: Array.from({ length: numPerPage }, () => ({})),
+        ...collections,
+      });
+    }
 
     const fetchCollections = async () => {
-      const { tokens: collections, count } = await getCollections({
+      const { tokens, count } = await getCollections({
         offset,
       });
-      setCollections(collections);
+      setCollections({ [page]: tokens, ...collections });
       setCount(count);
     };
     fetchCollections();
@@ -60,7 +65,7 @@ const Collections = () => {
       }}
     >
       <Grid container direction="row" sx={{ pb: 10 }}>
-        {collections?.map((collection, i) => (
+        {collections?.[page]?.map((collection, i) => (
           <Grid key={`collection_${collection?.name ?? i}`} {...gridProps}>
             <CollectionListItem collection={collection} />
           </Grid>
