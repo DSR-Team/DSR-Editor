@@ -15,15 +15,13 @@ import { useTheme } from "@mui/material/styles";
 const HeaderBarLink = ({ children, to }) => {
   const location = useLocation();
   const isCurrentPage = location.pathname === to;
-  const theme = useTheme();
-  const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <Link to={to}>
       <Typography
         color={isCurrentPage ? "text.primary" : "text.secondary"}
         sx={{
-          fontSize: isUpSm ? "1rem" : "0.875rem",
+          fontSize: { sm: "1rem", xs: "0.875rem" },
           mr: 4,
           fontWeight: "bold",
           position: "relative",

@@ -87,7 +87,7 @@ const Rooms = () => {
                 color="inherit"
                 sx={{
                   width: 360,
-                  height: 286,
+                  // height: "auto",
                   margin: 2,
                   borderWidth: 3,
                 }}

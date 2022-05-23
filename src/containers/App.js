@@ -143,8 +143,8 @@ const App = () => {
         <Box
           sx={{
             width: "100%",
-            height: "calc(100% - 56px)",
-            mt: "56px",
+            height: { xs: "calc(100% - 56px)", sm: "calc(100% - 64px)" },
+            mt: { xs: 7, sm: 8 },
             boxSizing: "border-box",
             display: "flex",
             flexDirection: "column",

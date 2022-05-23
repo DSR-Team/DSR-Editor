@@ -15,13 +15,11 @@ import {
   TextField,
   Tooltip,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import CopyIcon from "@mui/icons-material/ContentCopyRounded";
 import EditIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/DeleteRounded";
 import { useCallback, useContext, useState } from "react";
-import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { deleteRoom } from "../utils/axios";
 import { LoadingContext } from "../utils/context";
@@ -35,8 +33,6 @@ const RoomListItem = ({ room, refetch }) => {
   const [confirmText, setConfirmText] = useState("");
   const navigate = useNavigate();
   const skeleton = !name;
-  const theme = useTheme();
-  const isUpSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   const onClickCopy = () => {
     navigator.clipboard.writeText(id).then(() => {
@@ -64,13 +60,13 @@ const RoomListItem = ({ room, refetch }) => {
 
   return (
     <>
-      <Card sx={{ width: 360, margin: 2 }} raised>
+      <Card sx={{ width: 360, margin: 2, height: "max-content" }} raised>
         <Box
           sx={{
             width: "100%",
-            height: 210,
+            height: "auto",
+            aspectRatio: "15/9",
             position: "relative",
-            aspectRatio: "1",
             backgroundColor: "background.paper",
           }}
         >
@@ -114,7 +110,7 @@ const RoomListItem = ({ room, refetch }) => {
           sx={{
             pt: 1,
             "&:last-child": {
-              paddingBottom: isUpSm ? 1.5 : 1,
+              paddingBottom: { sm: 1.5, xs: 1 },
             },
             position: "relative",
           }}
@@ -123,6 +119,7 @@ const RoomListItem = ({ room, refetch }) => {
             variant="h6"
             sx={{
               mb: 0.5,
+              lineHeight: 1.6,
               width: "100%",
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -139,12 +136,13 @@ const RoomListItem = ({ room, refetch }) => {
                 variant="body2"
                 color="text.secondary"
                 sx={{
-                  fontSize: isUpSm ? "0.875rem" : "0.75rem",
+                  fontSize: { sm: "0.875rem", xs: "0.75rem" },
                   width: "fit-content",
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
                   cursor: "pointer",
+                  lineHeight: 1,
                   "&:hover": {
                     color: "text.primary",
                     textDecoration: "underline dotted 2px",
@@ -154,7 +152,7 @@ const RoomListItem = ({ room, refetch }) => {
               >
                 <CopyIcon
                   fontSize="small"
-                  sx={{ mr: 0.5, fontSize: isUpSm ? "1.25rem" : "1rem" }}
+                  sx={{ mr: 0.5, fontSize: { sm: "1.25rem", xs: "1rem" } }}
                 />
                 {id}
               </Typography>
@@ -179,13 +177,13 @@ const RoomListItem = ({ room, refetch }) => {
                   size="small"
                   sx={{
                     position: "absolute",
-                    right: isUpSm ? 48 : 40,
-                    bottom: isUpSm ? 8 : 4,
+                    right: { sm: 48, xs: 40 },
+                    bottom: { sm: 8, xs: 4 },
                   }}
                   onClick={onClickDelete}
                 >
                   <DeleteIcon
-                    sx={{ fontSize: isUpSm ? "1.5rem" : "1.25rem" }}
+                    sx={{ fontSize: { sm: "1.5rem", xs: "1.25rem" } }}
                   />
                 </IconButton>
               </Tooltip>
@@ -207,11 +205,13 @@ const RoomListItem = ({ room, refetch }) => {
                   sx={{
                     position: "absolute",
                     right: 8,
-                    bottom: isUpSm ? 8 : 4,
+                    bottom: { sm: 8, xs: 4 },
                   }}
                   onClick={onClickEdit}
                 >
-                  <EditIcon sx={{ fontSize: isUpSm ? "1.5rem" : "1.25rem" }} />
+                  <EditIcon
+                    sx={{ fontSize: { sm: "1.5rem", xs: "1.25rem" } }}
+                  />
                 </IconButton>
               </Tooltip>
             </>
