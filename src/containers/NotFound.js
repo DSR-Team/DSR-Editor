@@ -6,25 +6,26 @@ const NotFound = () => {
       sx={{
         width: "100%",
         height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <Box
-        component="img"
-        src="/DSR-Editor/images/test.jpg"
-        sx={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          position: "absolute",
-          zIndex: -1,
+      <img
+        src="/DSR-Editor/logo.svg"
+        alt="logo"
+        style={{
+          maxWidth: 200,
+          width: "30%",
         }}
-      ></Box>
+      />
       <Typography
-        variant="h2"
+        variant="h3"
         color="text.primary"
-        sx={{ textAlign: "center", mt: "5%", fontWeight: "bold" }}
+        sx={{ textAlign: "center", mt: 8, fontWeight: "bold" }}
       >
-        Nothing here!!!
+        Nothing = =
       </Typography>
     </Box>
   );

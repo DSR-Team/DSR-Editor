@@ -1,7 +1,7 @@
 import { Button, Card, CardActionArea, CardContent, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useCallback, useEffect, useState } from "react";
-import RoomListItem from "../components/RoomListItem";
+import RoomListItem from "../components/room/RoomListItem";
 import AddIcon from "@mui/icons-material/Add";
 import AddRoomDialog from "../components/AddRoomDialog";
 import { getRooms } from "../utils/axios";
@@ -69,13 +69,33 @@ const Rooms = () => {
                 <RoomListItem room={room} refetch={fetchRooms} />
               </Grid>
             ))}
-            <Grid {...gridProps} color="divider">
+            <Grid
+              {...gridProps}
+              position="relative"
+              color="divider"
+              sx={{ width: "max-content" }}
+            >
+              <RoomListItem />
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  width: "calc(100% - 32px)",
+                  maxWidth: 360,
+                  height: "calc(100% - 32px)",
+                  margin: 2,
+                  backgroundColor: "background.default",
+                }}
+              />
               <Button
                 variant="outlined"
                 color="inherit"
                 sx={{
-                  width: 360,
-                  // height: "auto",
+                  position: "absolute",
+                  top: 0,
+                  width: "calc(100% - 32px)",
+                  maxWidth: 360,
+                  height: "calc(100% - 32px)",
                   margin: 2,
                   borderWidth: 3,
                 }}

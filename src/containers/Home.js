@@ -32,7 +32,7 @@ const Home = () => {
       }}
     >
       <img
-        style={{ minWidth: 200, width: "50%", maxWidth: 360, marginBottom: 24 }}
+        style={{ minWidth: 200, width: "50%", maxWidth: 400, marginBottom: 24 }}
         src="/DSR-Editor/images/welcome.svg"
         alt="Welcome to DSR."
       />

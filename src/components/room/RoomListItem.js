@@ -16,29 +16,22 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import CopyIcon from "@mui/icons-material/ContentCopyRounded";
 import EditIcon from "@mui/icons-material/EditRounded";
 import DeleteIcon from "@mui/icons-material/DeleteRounded";
 import { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteRoom } from "../utils/axios";
-import { LoadingContext } from "../utils/context";
+import { deleteRoom } from "../../utils/axios";
+import { LoadingContext } from "../../utils/context";
+import RoomId from "./RoomId";
 
 const RoomListItem = ({ room, refetch }) => {
   const { image, name, id } = room ?? {};
-  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const { setIsLoading } = useContext(LoadingContext);
   const [isShowingConfirmDelete, setIsShowingConfirmDelete] = useState(false);
   const [confirmText, setConfirmText] = useState("");
   const navigate = useNavigate();
   const skeleton = !name;
-
-  const onClickCopy = () => {
-    navigator.clipboard.writeText(id).then(() => {
-      setIsSnackbarOpen(true);
-    });
-  };
 
   const onClickEdit = () => {
     navigate(id);
@@ -60,7 +53,7 @@ const RoomListItem = ({ room, refetch }) => {
 
   return (
     <>
-      <Card sx={{ width: 360, margin: 2, height: "max-content" }} raised>
+      <Card sx={{ width: 360, margin: 2, height: "max-content" }}>
         <Box
           sx={{
             width: "100%",
@@ -128,36 +121,7 @@ const RoomListItem = ({ room, refetch }) => {
           >
             {skeleton ? <Skeleton /> : name}
           </Typography>
-          {skeleton ? (
-            <Skeleton width="40%" />
-          ) : (
-            <Tooltip title="Click to copy" arrow followCursor>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{
-                  fontSize: { sm: "0.875rem", xs: "0.75rem" },
-                  width: "fit-content",
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  lineHeight: 1,
-                  "&:hover": {
-                    color: "text.primary",
-                    textDecoration: "underline dotted 2px",
-                  },
-                }}
-                onClick={onClickCopy}
-              >
-                <CopyIcon
-                  fontSize="small"
-                  sx={{ mr: 0.5, fontSize: { sm: "1.25rem", xs: "1rem" } }}
-                />
-                {id}
-              </Typography>
-            </Tooltip>
-          )}
+          {skeleton ? <Skeleton width="40%" /> : <RoomId id={id} />}
           {!skeleton && (
             <>
               <Tooltip
@@ -218,23 +182,6 @@ const RoomListItem = ({ room, refetch }) => {
           )}
         </CardContent>
       </Card>
-      <Snackbar
-        open={isSnackbarOpen}
-        autoHideDuration={1000}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        onClose={useCallback(() => {
-          setIsSnackbarOpen(false);
-        }, [])}
-        message="Room ID copied."
-        sx={{
-          "& .MuiPaper-root": {
-            maxWidth: "max-content",
-            minWidth: "max-content",
-            pl: 3,
-            pr: 3,
-          },
-        }}
-      />
       <Dialog open={isShowingConfirmDelete} maxWidth="xs" fullWidth>
         <DialogTitle>Are you sure to delete the room?</DialogTitle>
         <DialogContent>

@@ -14,7 +14,7 @@ import { useTheme } from "@mui/material/styles";
 
 const HeaderBarLink = ({ children, to }) => {
   const location = useLocation();
-  const isCurrentPage = location.pathname === to;
+  const isCurrentPage = "/" + location.pathname.split("/")[1] === to;
 
   return (
     <Link to={to}>
