@@ -12,7 +12,7 @@ import { getCollections } from "../utils/axios";
 
 const Collections = () => {
   const [collections, setCollections] = useState({});
-  const [count, setCount] = useState({});
+  const [count, setCount] = useState();
 
   const numPerPage = 24;
   const location = useLocation();

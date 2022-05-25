@@ -46,12 +46,15 @@ export const login = async (walletAddr, signature) => {
     });
 };
 
-export const getCollections = async ({ offset }) => {
-  return await instance
-    .get("/collections", { params: { offset } })
-    .then((res) => {
-      return res.data;
-    });
+/**
+ *
+ * @param {{offset: number?, mimeTypes: Array<string>?}} params
+ * @returns
+ */
+export const getCollections = async (params) => {
+  return await instance.get("/collections", { params }).then((res) => {
+    return res.data;
+  });
 };
 
 export const getRooms = async () => {
@@ -72,6 +75,18 @@ export const createRoom = async (name, image) => {
     .then((res) => {
       return res.data.id;
     });
+};
+
+/**
+ *
+ * @param {string} id
+ * @param {{name: string}} data
+ * @returns
+ */
+export const updateRoom = async (id, data) => {
+  return await instance
+    .put(`/rooms/${id}/update`, data)
+    .then((res) => res.data);
 };
 
 export const deleteRoom = async (id) => {

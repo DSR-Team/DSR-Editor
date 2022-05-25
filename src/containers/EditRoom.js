@@ -1,121 +1,80 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Grid,
-  IconButton,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-import BackIcon from "@mui/icons-material/ArrowBackIosNewRounded";
-import RoomId from "../components/room/RoomId";
-import { useTheme } from "@emotion/react";
-import { useCallback } from "react";
+import { Divider, Grid, useMediaQuery } from "@mui/material";
+import { useOutletContext, useParams } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import { useEffect, useState } from "react";
+import EditRoomMainArea from "../components/room/EditRoomMainArea";
+import { EditRoomContext } from "../utils/context";
+import EditRoomCollectionsList from "../components/room/EditRoomCollectionsList";
 
 const EditRoom = () => {
   const { roomList, fetchRooms } = useOutletContext();
   const { roomId } = useParams();
-  const { name } = roomList?.find((v) => v.id === roomId) ?? {};
-  const navigate = useNavigate();
+  const room = roomList?.find((v) => v.id === roomId) ?? {};
+  const { name: currentName } = room;
+
+  const [name, setName] = useState();
   const theme = useTheme();
   const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
 
+  useEffect(() => {
+    setName(currentName);
+  }, [currentName]);
+
+  const isModified = name && name !== currentName;
+
+  useEffect(() => {
+    const onBeforeUnload = (e) => {
+      if (!isModified) return;
+      e.preventDefault();
+      e.returnValue = "Changes haven't been saved. Are you sure to leave?";
+      return e;
+    };
+
+    window.addEventListener("beforeunload", onBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", onBeforeUnload);
+    };
+  }, [isModified]);
+
   return (
-    <Grid
-      container
-      direction="row"
-      sx={{
-        height: "100%",
-        width: "100%",
-        padding: { xs: "24px 8px", sm: 4 },
-        boxSizing: "border-box",
-      }}
+    <EditRoomContext.Provider
+      value={{ name, setName, roomId, room, isModified }}
     >
       <Grid
         container
-        item
-        direction="column"
-        xs={12}
-        md={7}
-        lg={6}
-        xl={4}
-        sx={{ padding: 2 }}
+        direction="row"
+        sx={{
+          height: "100%",
+          width: "100%",
+          padding: { xs: "24px 8px", sm: 4 },
+          boxSizing: "border-box",
+        }}
       >
-        <Box
-          sx={{
-            height: "max-content",
-            width: "100%",
-          }}
-        >
-          <Box
+        <EditRoomMainArea />
+        {isUpMd && (
+          <Grid
+            container
+            item
+            direction="row"
+            md={5.75}
+            lg={6.75}
+            xl={7.75}
             sx={{
-              height: "max-content",
-              width: "100%",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
+              height: "100%",
+              ml: { md: 2, lg: 3 },
+              pl: { md: 3, lg: 5 },
+              padding: 2,
+              borderLeft: 1,
+              borderColor: "divider",
+              boxSizing: "border-box",
             }}
           >
-            <IconButton
-              sx={{ mr: { xs: 1, sm: 2 } }}
-              onClick={useCallback(() => {
-                navigate("/rooms");
-              }, [navigate])}
-            >
-              <BackIcon sx={{ fontSize: { xs: "1.25rem", sm: "1.5rem" } }} />
-            </IconButton>
-            <Typography
-              variant="h3"
-              color="text.primary"
-              sx={{
-                height: "max-content",
-                width: "100%",
-                overflow: "hidden",
-                overflowWrap: "break-word",
-              }}
-            >
-              {name}
-            </Typography>
-          </Box>
-          <RoomId
-            sx={{
-              fontSize: { sm: "1.2rem", xs: "0.875rem" },
-              ml: { xs: "44px", sm: 7 },
-              mt: { xs: 1, sm: 1.5 },
-              mb: { xs: 3, sm: 5 },
-            }}
-            id={roomId}
-          />
-        </Box>
-        <Box
-          sx={{
-            flexGrow: 1,
-            backgroundColor: "red",
-            ml: { xs: 0, md: 7 },
-          }}
-        ></Box>
-        <Box
-          sx={{
-            mt: 4,
-            mb: 4,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <Button variant="outlined">Save</Button>
-        </Box>
+            <EditRoomCollectionsList />
+          </Grid>
+        )}
       </Grid>
-      {isUpMd && (
-        <Divider
-          sx={{ ml: 4 }}
-          orientation="vertical"
-          variant="middle"
-          flexItem
-        />
-      )}
-    </Grid>
+    </EditRoomContext.Provider>
   );
 };
 

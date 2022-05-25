@@ -140,6 +140,7 @@ const RoomListItem = ({ room, refetch }) => {
                   color="error"
                   size="small"
                   sx={{
+                    color: "error.light",
                     position: "absolute",
                     right: { sm: 48, xs: 40 },
                     bottom: { sm: 8, xs: 4 },
@@ -167,6 +168,7 @@ const RoomListItem = ({ room, refetch }) => {
                   color="primary"
                   size="small"
                   sx={{
+                    color: "primary.light",
                     position: "absolute",
                     right: 8,
                     bottom: { sm: 8, xs: 4 },
