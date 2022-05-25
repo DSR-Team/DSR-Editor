@@ -15,7 +15,12 @@ const EditRoomPlan = () => {
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
       {PLACE_NAME.map((name, i) => (
-        <Button key={name} id={i} onClick={onSelectPlace}>
+        <Button
+          key={name}
+          id={i}
+          onClick={onSelectPlace}
+          variant={i === currentEditPlace ? "contained" : "outlined"}
+        >
           {name}
         </Button>
       ))}

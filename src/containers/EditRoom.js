@@ -78,7 +78,7 @@ const EditRoom = () => {
         }}
       >
         <EditRoomMainArea />
-        {isUpMd && (
+        {
           <Grid
             container
             item
@@ -87,18 +87,18 @@ const EditRoom = () => {
             lg={6.75}
             xl={7.75}
             sx={{
-              height: "100%",
+              height: isUpMd ? "100%" : "max-content",
               ml: { md: 2, lg: 3 },
               pl: { md: 3, lg: 5 },
               padding: 2,
-              borderLeft: 1,
+              borderLeft: isUpMd ? 1 : "none",
               borderColor: "divider",
               boxSizing: "border-box",
             }}
           >
             <EditRoomCollectionsList />
           </Grid>
-        )}
+        }
       </Grid>
     </EditRoomContext.Provider>
   );

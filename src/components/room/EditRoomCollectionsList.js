@@ -7,11 +7,13 @@ import {
   Tab,
   Tabs,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { COLLECTION_TYPES } from "../../hooks/useCollections";
 import { EditRoomContext } from "../../utils/context";
+import { useTheme } from "@mui/material/styles";
 import EditRoomCollectionListItem from "./EditRoomCollectionListItem";
 
 const ALLOWED_TYPES = [
@@ -36,6 +38,9 @@ const EditRoomCollectionsList = () => {
   } = useOutletContext();
   const { currentEditPlace } = useContext(EditRoomContext);
 
+  const theme = useTheme();
+  const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
+
   const handleChange = (_, newValue) => {
     setCollectionTabIndex(newValue);
     setCollectionPage(1);
@@ -46,8 +51,8 @@ const EditRoomCollectionsList = () => {
     container: true,
     direction: "row",
     justifyContent: "center",
-    xs: 12,
-    sm: 6,
+    width: isUpMd ? undefined : "25vw",
+    minWidth: isUpMd ? undefined : 120,
     md: 4,
     lg: 3,
     xl: 2,
@@ -118,11 +123,11 @@ const EditRoomCollectionsList = () => {
           mt: 2,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          pb: 6,
+          alignItems: isUpMd ? "center" : "flex-start",
+          pb: isUpMd ? 6 : 2,
         }}
       >
-        <Grid container direction="row">
+        <Grid container direction="row" width={isUpMd ? "100%" : "max-content"}>
           {shownCollections?.map((collection, i) => (
             <Grid key={`collection_${collection?.name ?? i}`} {...gridProps}>
               <EditRoomCollectionListItem collection={collection} />
