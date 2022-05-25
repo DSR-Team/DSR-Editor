@@ -1,4 +1,4 @@
-import { Divider, Grid, useMediaQuery } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import { useOutletContext, useParams } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
@@ -7,12 +7,14 @@ import { EditRoomContext } from "../utils/context";
 import EditRoomCollectionsList from "../components/room/EditRoomCollectionsList";
 
 const EditRoom = () => {
-  const { roomList, fetchRooms } = useOutletContext();
+  const { roomList } = useOutletContext();
+  const [currentEditPlace, setCurrentEditPlace] = useState(0);
+  const [meta, setMeta] = useState();
+  const [name, setName] = useState();
   const { roomId } = useParams();
   const room = roomList?.find((v) => v.id === roomId) ?? {};
-  const { name: currentName } = room;
+  const { name: currentName, metadata: currentMeta } = room;
 
-  const [name, setName] = useState();
   const theme = useTheme();
   const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -20,7 +22,17 @@ const EditRoom = () => {
     setName(currentName);
   }, [currentName]);
 
-  const isModified = name && name !== currentName;
+  useEffect(() => {
+    setMeta(currentMeta);
+  }, [currentMeta]);
+
+  const isModified =
+    (name && name !== currentName) ||
+    (meta?.findIndex(
+      (v, i) =>
+        v.contract !== currentMeta[i].contract ||
+        v.tokenId !== currentMeta[i].tokenId
+    ) ?? -1) !== -1;
 
   useEffect(() => {
     const onBeforeUnload = (e) => {
@@ -37,9 +49,23 @@ const EditRoom = () => {
     };
   }, [isModified]);
 
+  useEffect(() => {
+    setCurrentEditPlace(0);
+  }, [setCurrentEditPlace]);
+
   return (
     <EditRoomContext.Provider
-      value={{ name, setName, roomId, room, isModified }}
+      value={{
+        name,
+        setName,
+        roomId,
+        room,
+        isModified,
+        currentEditPlace,
+        setCurrentEditPlace,
+        meta,
+        setMeta,
+      }}
     >
       <Grid
         container

@@ -14,8 +14,11 @@ export const LoadingContext = createContext({
 });
 
 /**
- * @typedef {{name: String}} Room
- * @type {Context<{name: String, setName: ()=>{}, roomId: String, room: Room, isModified: boolean }>}
+ * @typedef {{contract: string, tokenId: string}} Token
+ * @typedef {{name: String, metadata: Array<Token>}} Room
+ * @type {Context<{name: String, setName: ()=>{}, roomId: String, room: Room,
+ * isModified: boolean, currentEditPlace: number, setCurrentEditPlace: ()=>{},
+ * meta: Array<Token>, setMeta: ()=>{} }>}
  */
 export const EditRoomContext = createContext({
   name: undefined,
@@ -23,4 +26,8 @@ export const EditRoomContext = createContext({
   roomId: undefined,
   room: undefined,
   isModified: false,
+  currentEditPlace: 0,
+  setCurrentEditPlace: undefined,
+  meta: undefined,
+  setMeta: undefined,
 });

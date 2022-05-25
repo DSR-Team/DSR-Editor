@@ -8,9 +8,22 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
+import { useContext, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { COLLECTION_TYPES } from "../../hooks/useCollections";
+import { EditRoomContext } from "../../utils/context";
 import EditRoomCollectionListItem from "./EditRoomCollectionListItem";
+
+const ALLOWED_TYPES = [
+  [0, 1, 2, 3],
+  [0, 1, 2, 3],
+  [0, 1, 2, 3],
+  [0, 1, 2, 3],
+  [4],
+  [4],
+];
+
+const DISPLAY_COLLECTION_TYPES = ["image", "gif", "video", "audio", "3d model"];
 
 const EditRoomCollectionsList = () => {
   const {
@@ -21,6 +34,7 @@ const EditRoomCollectionsList = () => {
     shownCollections,
     counts,
   } = useOutletContext();
+  const { currentEditPlace } = useContext(EditRoomContext);
 
   const handleChange = (_, newValue) => {
     setCollectionTabIndex(newValue);
@@ -42,8 +56,17 @@ const EditRoomCollectionsList = () => {
   const count = counts[collectionTabIndex];
 
   const handlePageChange = (_, value) => {
-    setCollectionPage(value);
+    setCollectionPage(allowedTypes[value]);
   };
+
+  const allowedTypes = ALLOWED_TYPES[currentEditPlace];
+
+  useEffect(() => {
+    setCollectionPage(1);
+    setCollectionTabIndex(allowedTypes[0]);
+  }, [currentEditPlace]);
+
+  const tabValue = allowedTypes.indexOf(collectionTabIndex);
 
   return (
     <Box
@@ -53,6 +76,7 @@ const EditRoomCollectionsList = () => {
         display: "flex",
         flexDirection: "column",
         overflow: "hidden",
+        position: "relative",
       }}
     >
       <Box
@@ -64,7 +88,7 @@ const EditRoomCollectionsList = () => {
         }}
       >
         <Tabs
-          value={collectionTabIndex}
+          value={tabValue !== -1 ? tabValue : 0}
           onChange={handleChange}
           sx={{
             minHeight: { xs: 32, lg: 48 },
@@ -77,11 +101,13 @@ const EditRoomCollectionsList = () => {
             },
           }}
         >
-          <Tab label="Image" tabIndex={0} />
-          <Tab label="Gif" tabIndex={1} />
-          <Tab label="Video" tabIndex={2} />
-          <Tab label="Audio" tabIndex={3} />
-          <Tab label="3D" tabIndex={4} />
+          {allowedTypes.map((v, i) => (
+            <Tab
+              key={DISPLAY_COLLECTION_TYPES[v]}
+              label={DISPLAY_COLLECTION_TYPES[v]}
+              tabIndex={i}
+            />
+          ))}
         </Tabs>
       </Box>
       <Box
@@ -93,6 +119,7 @@ const EditRoomCollectionsList = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          pb: 6,
         }}
       >
         <Grid container direction="row">
@@ -115,9 +142,9 @@ const EditRoomCollectionsList = () => {
           <Pagination
             color="primary"
             sx={(theme) => ({
-              position: "sticky",
+              position: "absolute",
               zIndex: 100,
-              bottom: 5,
+              bottom: 10,
               borderRadius: "9999px",
               display: "flex",
               backgroundColor: `${theme.palette.background.default}88`,

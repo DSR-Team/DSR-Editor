@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 export const COLLECTION_TYPES = [
-  "image,gif,video,audio,3dmodel,interactive",
+  "image",
+  // "image,gif,video,audio,3dmodel,interactive",
   "gif",
   "video",
   "audio",
@@ -31,7 +32,7 @@ const useCollections = () => {
   const setCollections = (type, data, page) => {
     const { tokens, count } = data;
     if (typeof type === "string") {
-      type = COLLECTION_TYPES.findIndex((v) => v === type);
+      type = COLLECTION_TYPES.indexOf(type);
     }
 
     switch (type) {

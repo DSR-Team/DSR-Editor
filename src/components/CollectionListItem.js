@@ -37,7 +37,7 @@ const CollectionListItem = ({ collection }) => {
               objectFit: "contain",
               width: "100%",
               height: "100%",
-              zIndex: 1,
+              // zIndex: 1,
               position: "absolute",
               top: 0,
             }}
@@ -61,7 +61,7 @@ const CollectionListItem = ({ collection }) => {
         {!isLoaded && (
           <Skeleton
             sx={{
-              zIndex: 0,
+              // zIndex: 0,
               position: "absolute",
               top: 0,
             }}

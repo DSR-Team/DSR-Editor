@@ -7,20 +7,30 @@ import RoomId from "./RoomId";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { EditRoomContext, LoadingContext } from "../../utils/context";
 import { updateRoom } from "../../utils/axios";
+import EditRoomPlan from "./EditRoomPlan";
 
 const EditRoomMainArea = () => {
   const { setRoomList } = useOutletContext();
   const { setIsLoading } = useContext(LoadingContext);
 
   const navigate = useNavigate();
-  const { name, setName, roomId, isModified, room } =
+  const { name, setName, roomId, isModified, room, meta } =
     useContext(EditRoomContext);
 
   const onClickSave = () => {
     setIsLoading(true);
     const newData = {};
     if (name !== room.name) {
-      newData["name"] = name;
+      newData.name = name;
+    }
+    if (
+      (meta?.findIndex(
+        (v, i) =>
+          v.contract !== room.metadata[i].contract ||
+          v.tokenId !== room.metadata[i].tokenId
+      ) ?? -1) !== -1
+    ) {
+      newData.metadata = meta;
     }
     updateRoom(roomId, newData).then((room) => {
       setRoomList((oldRoomList) => {
@@ -95,10 +105,11 @@ const EditRoomMainArea = () => {
       <Box
         sx={{
           flexGrow: 1,
-          backgroundColor: "red",
           ml: { xs: 0, md: 7 },
         }}
-      ></Box>
+      >
+        <EditRoomPlan />
+      </Box>
       <Box
         sx={{
           mt: 4,
