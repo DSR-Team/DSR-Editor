@@ -37,8 +37,7 @@ const EditRoomCollectionListItem = ({ collection }) => {
     if (place === -1) {
       setMeta(getNewMeta(currentEditPlace, { contract, tokenId }));
     } else if (place === currentEditPlace) {
-      // setMeta(getNewMeta(place, { contract: "", tokenId: -1 }));
-      setMeta(getNewMeta(place, -1));
+      setMeta(getNewMeta(place, {}));
     }
   };
 
@@ -54,7 +53,7 @@ const EditRoomCollectionListItem = ({ collection }) => {
             : "not-allowed",
         boxShadow:
           (place ?? -1) !== -1
-            ? `0px 0px 10px 3px ${theme.palette.success.main}`
+            ? `0px 0px 10px 3px ${theme.palette.primary.main}`
             : undefined,
       })}
       onClick={onSelect}
@@ -72,27 +71,43 @@ const EditRoomCollectionListItem = ({ collection }) => {
           <Box
             variant="h6"
             component="span"
-            sx={{
-              zIndex: 2,
+            sx={(theme) => ({
+              zIndex: 5,
               width: "auto",
               height: "25%",
               position: "absolute",
               top: "5%",
               right: "5%",
               borderRadius: 999,
-              backgroundColor: "success.dark",
+              backgroundColor: "primary.main",
+              border: "2px solid white",
               textAlign: "center",
               aspectRatio: "1",
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-            }}
+              color: "primary.dark",
+            })}
           >
             <Typography variant="h6" lineHeight="unset" fontWeight="bold">
               {PLACE_NAME[place]}
             </Typography>
           </Box>
+        )}
+        {mimeType?.includes("audio") && (
+          <audio
+            style={{
+              width: "90%",
+              height: "15%",
+              zIndex: 2,
+              position: "absolute",
+              bottom: "5%",
+              left: "5%",
+            }}
+            src={artifactUri}
+            controls
+          />
         )}
         {!skeleton && (
           <CardMedia

@@ -10,6 +10,7 @@ export const darkTheme = responsiveFontSizes(
       },
       primary: {
         main: "#78e5fe",
+        dark: "#266d7d",
       },
       secondary: {
         main: "rgba(255, 255, 255, 0.7)",

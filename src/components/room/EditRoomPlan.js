@@ -14,24 +14,11 @@ const EditRoomPlan = () => {
 
   return (
     <Box sx={{ width: "100%", height: "100%" }}>
-      <Button id="0" onClick={onSelectPlace}>
-        A
-      </Button>
-      <Button id="1" onClick={onSelectPlace}>
-        B
-      </Button>
-      <Button id="2" onClick={onSelectPlace}>
-        C
-      </Button>
-      <Button id="3" onClick={onSelectPlace}>
-        D
-      </Button>
-      <Button id="4" onClick={onSelectPlace}>
-        E
-      </Button>
-      <Button id="5" onClick={onSelectPlace}>
-        F
-      </Button>
+      {PLACE_NAME.map((name, i) => (
+        <Button key={name} id={i} onClick={onSelectPlace}>
+          {name}
+        </Button>
+      ))}
     </Box>
   );
 };

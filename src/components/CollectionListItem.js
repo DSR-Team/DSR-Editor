@@ -37,7 +37,7 @@ const CollectionListItem = ({ collection }) => {
               objectFit: "contain",
               width: "100%",
               height: "100%",
-              // zIndex: 1,
+              zIndex: 1,
               position: "absolute",
               top: 0,
             }}
@@ -58,10 +58,24 @@ const CollectionListItem = ({ collection }) => {
             }}
           />
         )}
+        {mimeType?.includes("audio") && (
+          <audio
+            style={{
+              width: "90%",
+              height: "15%",
+              zIndex: 2,
+              position: "absolute",
+              bottom: "5%",
+              left: "5%",
+            }}
+            src={artifactUri}
+            controls
+          />
+        )}
         {!isLoaded && (
           <Skeleton
             sx={{
-              // zIndex: 0,
+              zIndex: 0,
               position: "absolute",
               top: 0,
             }}
