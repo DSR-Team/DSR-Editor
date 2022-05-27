@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export const COLLECTION_TYPES = [
-  "image",
-  // "image,gif,video,audio,3dmodel,interactive",
+  // "image",
+  "image,gif,video,audio,3dmodel,interactive",
   "gif",
   "video",
   "audio",

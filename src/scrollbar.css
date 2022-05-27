@@ -1,0 +1,46 @@
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* scrollbar itself */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(120, 229, 254, 0.05);
+  border: 7px solid #121212;
+  border-radius: 999px;
+}
+
+/* set button(top and bottom of the scrollbar) */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+.scrolling::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.scrolling::-webkit-scrollbar-thumb {
+  background-color: rgb(120, 229, 254);
+  border: 7px solid #121212;
+  border-radius: 999px;
+}
+
+/* background of the scrollbar except button or resizer */
+.scrolling::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* *:hover::-webkit-scrollbar-thumb {
+  background-color: #a0a0a5;
+} */
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(120, 229, 254);
+  border: 6px solid #121212;
+  border-radius: 999px;
+}

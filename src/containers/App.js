@@ -13,6 +13,7 @@ import Collections from "./Collections";
 import { renewJwt } from "../utils/axios";
 import EditRoom from "./EditRoom";
 import RoomsRoot from "./RoomsRoot";
+import useScrollbar from "../hooks/useScrollbar";
 
 const PrivateRoute = () => {
   const { authState } = useContext(AuthContext);
@@ -22,6 +23,7 @@ const PrivateRoute = () => {
 const App = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useScrollbar();
 
   const initAuthState = () => {
     const authToken = storage.authToken;
@@ -150,9 +152,10 @@ const App = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            overflow: "auto",
+            overflow: "overlay",
             scrollBehavior: "smooth",
           }}
+          ref={scrollRef}
         >
           <Routes>
             <Route path="/" element={<Outlet />}>

@@ -15,6 +15,7 @@ import { COLLECTION_TYPES } from "../../hooks/useCollections";
 import { EditRoomContext } from "../../utils/context";
 import { useTheme } from "@mui/material/styles";
 import EditRoomCollectionListItem from "./EditRoomCollectionListItem";
+import useScrollbar from "../../hooks/useScrollbar";
 
 const ALLOWED_TYPES = [
   [0, 1, 2, 3],
@@ -37,6 +38,7 @@ const EditRoomCollectionsList = () => {
     counts,
   } = useOutletContext();
   const { currentEditPlace } = useContext(EditRoomContext);
+  const scrollRef = useScrollbar();
 
   const theme = useTheme();
   const isUpMd = useMediaQuery(theme.breakpoints.up("md"));
@@ -119,15 +121,21 @@ const EditRoomCollectionsList = () => {
         sx={{
           width: "100%",
           height: "100%",
-          overflow: "scroll",
+          overflow: "auto",
           mt: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: isUpMd ? "center" : "flex-start",
-          pb: isUpMd ? 6 : 2,
+          pb: isUpMd ? 6 : 0,
         }}
+        ref={scrollRef}
       >
-        <Grid container direction="row" width={isUpMd ? "100%" : "max-content"}>
+        <Grid
+          container
+          direction="row"
+          width={isUpMd ? "100%" : "max-content"}
+          sx={{ mt: { xs: 4, md: 0 } }}
+        >
           {shownCollections?.map((collection, i) => (
             <Grid key={`collection_${collection?.name ?? i}`} {...gridProps}>
               <EditRoomCollectionListItem collection={collection} />
@@ -144,26 +152,36 @@ const EditRoomCollectionsList = () => {
           </Typography>
         )}
         {(count ?? 0) > 24 && (
-          <Pagination
-            color="primary"
-            sx={(theme) => ({
-              position: "absolute",
-              zIndex: 100,
-              bottom: 10,
-              borderRadius: "9999px",
+          <Box
+            sx={{
+              width: "100%",
               display: "flex",
-              backgroundColor: `${theme.palette.background.default}88`,
-              flexDirection: "row",
-              justifyContent: "center",
+              flexDirection: "column",
               alignItems: "center",
-              mt: 1.5,
-              padding: 0.5,
-            })}
-            page={collectionPage}
-            count={Math.ceil(count / 24)}
-            onChange={handlePageChange}
-            size="small"
-          />
+            }}
+          >
+            <Pagination
+              color="primary"
+              sx={(theme) => ({
+                position: "absolute",
+                zIndex: 100,
+                top: isUpMd ? undefined : 32,
+                bottom: isUpMd ? 5 : undefined,
+                borderRadius: "9999px",
+                display: "flex",
+                backgroundColor: `${theme.palette.background.default}88`,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                mt: 1.5,
+                padding: 0.5,
+              })}
+              page={collectionPage}
+              count={Math.ceil(count / 24)}
+              onChange={handlePageChange}
+              size="small"
+            />
+          </Box>
         )}
       </Box>
     </Box>
