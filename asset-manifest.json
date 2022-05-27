@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/DSR-Editor/static/css/main.e66c26dd.chunk.css",
-    "main.js": "/DSR-Editor/static/js/main.636da99e.chunk.js",
-    "main.js.map": "/DSR-Editor/static/js/main.636da99e.chunk.js.map",
+    "main.js": "/DSR-Editor/static/js/main.6ad763a9.chunk.js",
+    "main.js.map": "/DSR-Editor/static/js/main.6ad763a9.chunk.js.map",
     "runtime-main.js": "/DSR-Editor/static/js/runtime-main.1940b983.js",
     "runtime-main.js.map": "/DSR-Editor/static/js/runtime-main.1940b983.js.map",
     "static/js/2.0b7b60ea.chunk.js": "/DSR-Editor/static/js/2.0b7b60ea.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.1940b983.js",
     "static/js/2.0b7b60ea.chunk.js",
     "static/css/main.e66c26dd.chunk.css",
-    "static/js/main.636da99e.chunk.js"
+    "static/js/main.6ad763a9.chunk.js"
   ]
 }
