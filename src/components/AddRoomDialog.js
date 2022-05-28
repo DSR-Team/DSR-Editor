@@ -38,7 +38,7 @@ const AddRoomDialog = ({ open, onClose }) => {
           To create a new showroom, please give it a name.
         </DialogContentText>
         <img
-          style={{ aspectRatio: 16 / 9, objectFit: "cover" }}
+          style={{ aspectRatio: "16/9", objectFit: "cover" }}
           width="100%"
           alt="default"
           src="/DSR-Editor/images/default.png"

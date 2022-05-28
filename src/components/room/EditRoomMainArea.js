@@ -105,7 +105,7 @@ const EditRoomMainArea = () => {
       <Box
         sx={{
           flexGrow: 1,
-          ml: { xs: 0, md: 7 },
+          ml: { xs: 0, md: 4 },
         }}
       >
         <EditRoomPlan />

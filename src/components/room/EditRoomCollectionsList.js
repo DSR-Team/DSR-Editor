@@ -146,7 +146,12 @@ const EditRoomCollectionsList = () => {
           <Typography
             variant="h6"
             color="text.primary"
-            sx={{ textAlign: "center", mt: "5%", fontWeight: "bold" }}
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              mt: "5%",
+              fontWeight: "bold",
+            }}
           >
             No {COLLECTION_TYPES[collectionTabIndex]} collection!
           </Typography>
