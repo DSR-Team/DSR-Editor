@@ -58,7 +58,7 @@ const LimitLengthTextField = (props) => {
       let len = getLen(newValue);
       setTextLen(len);
     }
-    _setValue(newValue);
+    _setValue(e.target.value);
     onChange?.(e);
   };
 
